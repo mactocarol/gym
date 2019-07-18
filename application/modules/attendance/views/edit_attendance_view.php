@@ -65,7 +65,12 @@
                                                 Check-in
                                                 <br> <h1><?php echo getCustomerAttendanceCount($row['id']); ?></h1>
                                             </td>
-                                            <td><a onclick="setcustomer(<?=$row['id']?>);" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-success">Check-in</a></td>
+                                            <td>
+                                                <a onclick="setcustomer(<?=$row['id']?>);" data-toggle="modal" data-target=".bs-example-modal-lg" class="btn btn-success">Check-in</a>
+                                                <?php if(!empty($row['today_attendance'])){ ?>
+                                                <h3><p id="checked_in">Checked-in</p></h3>
+                                                <?php } ?>
+                                            </td>
                                         </tr>
                                         <?php } ?>                                        
                                     </tbody>
@@ -100,27 +105,47 @@
                         
                         <div class="modal-body">
                             <h4>Select Time</h4>
-                             <div class="input-group">
-                                <input type="text" name="date" class="form-control mydatepicker" placeholder="mm/dd/yyyy">
-                                <span class="input-group-addon"><i class="icon-calender"></i></span>
+                            <div class="form-group date-group">
+                                <label class="col-sm-12">Date</label>
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" id="date" name="date" class="form-control mydatepicker" placeholder="dd-mm-yyyy" autocomplete="off" readonly>
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                    </div>
+                                    <span id="date_error" class="help-block"></span>
+                                </div>
                             </div>
-                            <br> 
-                            <div class="input-group clockpicker " data-placement="bottom" data-align="top" data-autoclose="true">
-                                <input type="text" name="time" class="form-control" value="09:30">
-                                <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
-                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12">Time</label>
+                                <div class="col-sm-12">
+                                    <div class="input-group clockpicker " data-placement="bottom" data-align="top" data-autoclose="true">
+                                        <input type="text" id="time" name="time" class="form-control" value="09:30" autocomplete="off" readonly>
+                                        <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
+                                    </div>
+                                    <span id="time_error" class="help-block"></span>
+                                </div>
+                            </div>                             
+                            
                             <input type="hidden" name="customer_id"  id="customer_id">
                             <div>
                                 
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <a  class="btn btn-success" onclick="submit_form();">Submit</a>
                             <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                         <script>
-                            jQuery('.mydatepicker, #datepicker').datepicker({ todayHighlight: true, autoclose: true });                            
+                            jQuery('.mydatepicker, #datepicker').datepicker({
+                                todayHighlight: true,
+                                autoclose: true,
+                                format: 'dd-mm-yyyy'                                
+                            }).on("change", function() {
+                                $('#date_error').html('');
+                                $('.date-group').removeClass('has-error');
+                            });
+                            
                         </script>
                         <script>
                             $('.clockpicker').clockpicker({
@@ -145,7 +170,19 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-    
+    <script>
+        function submit_form(){            
+            var date = $('#date').val();        
+            if(!date){
+                $('#date_error').html('please select date');                
+                $('.date-group').addClass('has-error');
+                
+                return false;
+            }
+            
+            $('#markform').submit();
+        }
+    </script>
     <script>
     $(document).ready(function() {
         $('#myTable').DataTable();

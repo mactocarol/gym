@@ -70,9 +70,17 @@ class Attendance extends MY_Controller
                redirect('attendance');
             }
             
-            $datas->customers = $this->attendance_model->SelectRecord('customer','*',$udata=array("is_deleted"=>'0'),'id asc');
+            $customers = $this->attendance_model->SelectRecord('customer','*',$udata=array("is_deleted"=>'0'),'id asc');
+            foreach($customers as $key=>$value){
+                $date = (date('d-m-Y')); 
+                $today_attendance = $this->attendance_model->SelectSingleRecord('attendance','*',array("user_id"=>$value['id'],"date"=>$date),$orderby=array());
+                $customers[$key]['today_attendance'] = $today_attendance;
+            }
+            //print_r($customers); die;
+            $datas->customers = $customers;
             $udata = array("id"=>$this->session->userdata('user_id'));               
-            $datas->result = $this->attendance_model->SelectSingleRecord('users','*',$udata,$orderby=array());            
+            $datas->result = $this->attendance_model->SelectSingleRecord('users','*',$udata,$orderby=array());
+                        
             $datas->title = 'Attendance';
             $datas->field = 'Datatable';
             $datas->page = 'attendance';            
