@@ -1,0 +1,8 @@
+# Ignore file named `database.php`
+/application/config/database.php
+
+# Ignore file named `config.php`
+/application/config/config.php
+
+# Ignore file named `index.php`
+/index.php
