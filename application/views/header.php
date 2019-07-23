@@ -164,9 +164,11 @@
                     <li> <a href="<?php echo site_url();?>" class="waves-effect"><i data-icon="P" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">Dashboard</span></a> </li>
                     
                     <li><a href="inbox.html" class="waves-effect"><i data-icon=")" class="linea-icon linea-basic fa-fw"></i> <span class="hide-menu">Manage <span class="fa arrow"></span></span></a>
-                        <ul class="nav nav-second-level">
+                        <ul class="nav nav-second-level two-li collapse">
                             <li><a href="<?php echo site_url('mybusiness');?>">MY Business</a></li>
+                            <li><a href="<?php echo site_url('membership');?>">Membership</a></li>
                             <li><a href="<?php echo site_url('customer');?>">Customers</a></li>
+                            <li><a href="<?php echo site_url('subscription');?>">Subscription</a></li>
                             <li><a href="<?php echo site_url('attendance');?>">Mark Attendance</a></li>
                             <!--<li><a href="javascript:void(0)" class="waves-effect">Inbox<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">

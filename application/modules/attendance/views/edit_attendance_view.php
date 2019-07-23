@@ -42,7 +42,7 @@
                             
                             <p class="text-muted m-b-30"><?=($title)?$title:''?></p>
                             <div class="table-responsive">
-                                <table id="myTable" class="table table-striped">
+                                <table id="myTable" class="table table-striped color-table info-table">
                                     <thead>
                                         <tr>
                                             <th>S No.</th>

@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Customer List</h4>
+                        <h4 class="page-title">Subscription</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">                        
                         <ol class="breadcrumb">
@@ -38,35 +38,33 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title m-b-0"><a href="<?php echo site_url('customer/add'); ?>" class="btn btn-info"> <i class="fa fa-plus"></i> Add New Customer</a></h3>
+                            <h3 class="box-title m-b-0"><a href="<?php echo site_url('subscription/add'); ?>" class="btn btn-info"> <i class="fa fa-plus"></i> Add New Subscription</a></h3>
                             <p class="text-muted m-b-30"><?=($title)?$title:''?></p>
                             <div class="table-responsive">
                                 <table id="myTable" class="table table-striped color-table info-table">
                                     <thead>
-                                        <tr>
-                                            <th>S No.</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Contact</th>
-                                            <th>Age</th>
-                                            <th>Gender</th>
-                                            <th>Date</th>
+                                        <tr>                                            
+                                            <th>Client</th>
+                                            <th>Amount to be Paid</th>
+                                            <th>Remaining Amount</th>
+                                            <th>Start Date</th>
+                                            <th>Next Payment</th>
+                                            <th>Expire On</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i=1; foreach($customers as $row){?>
-                                        <tr>
-                                            <td><?=$i++?></td>
-                                            <td><?=$row['f_name'].' '.$row['l_name']?></td>
-                                            <td><?php echo ($row['email']) ? $row['email'] : ''; ?></td>
-                                            <td><?php echo ($row['contact']) ? $row['contact'] : ''; ?></td>
-                                            <td><?php echo ($row['age']) ? $row['age'] : ''; ?></td>
-                                            <td><?php echo ($row['gender'] == 1) ? 'Male' : 'Female'; ?></td>
-                                            <td><?php echo ($row['created_at']) ? date('d M Y h:i a',strtotime($row['created_at'])) : ''; ?></td>
+                                        <?php $i=1; foreach($subscriptions as $row){?>
+                                        <tr>                                            
+                                            <td><?php echo ($row['customer_id']) ? $row['customer_id'] : ''; ?></td>
+                                            <td><?php echo ($row['amount']) ? $row['amount'].' '.$currency : ''; ?></td>
+                                            <td><?php echo ($row['discount']) ? $row['discount'].' '.$currency : ''; ?></td>
+                                            <td><?php echo ($row['start_date']) ? $row['start_date'] : ''; ?></td>
+                                            <td><?php echo isset($row['payment']) ? $row['payment'] : ''; ?></td>
+                                            <td><?php echo ($row['expire_date']) ? date('d-m-Y',$row['expire_date']) : ''; ?></td>                                            
                                             <td>
-                                                <a href="<?php echo site_url('customer/edit/'.base64_encode($row['id'])); ?>"> <i class="fa fa-pencil"></i></a>
-                                                <a href="<?php echo site_url('customer/delete/'.base64_encode($row['id'])); ?>" onclick=" var c = confirm('Are you sure want to delete?'); if(!c) return false;"> <i class="fa fa-trash"></i></a>
+                                                <a href="<?php echo site_url('subscription/edit/'.base64_encode($row['id'])); ?>"> <i class="fa fa-pencil"></i></a>
+                                                <a href="<?php echo site_url('subscription/delete/'.base64_encode($row['id'])); ?>" onclick=" var c = confirm('Are you sure want to delete?'); if(!c) return false;"> <i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <?php } ?>                                        
